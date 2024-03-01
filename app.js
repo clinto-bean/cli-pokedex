@@ -1,15 +1,22 @@
 import { findPokemon } from "./api/v1/dao/pokemonDAO.js"
-import { getAnotherSearch, getUserQuery } from "./api/v1/getters/getters.js"
-
-console.log(`\nWelcome to PokéCLI!\n`)
+import {
+  getAnotherSearch,
+  getUserQuery,
+  getPokemonInfo,
+} from "./api/v1/getters/getters.js"
 
 const app = async () => {
-  const { searchType, searchValue } = getUserQuery()
-  await findPokemon(searchType, searchValue)
-  const anotherSearch = getAnotherSearch()
-  if (anotherSearch) {
-    app()
+  try {
+    const { searchType, searchValue } = getUserQuery()
+    const pokemon = await findPokemon(searchType, searchValue)
+    getPokemonInfo(pokemon)
+  } catch (error) {
+    console.log(`Error: ${error.message}`)
   }
+
+  getAnotherSearch() && app()
 }
+
+console.log(`\nWelcome to PokéCLI!\n`)
 
 app()

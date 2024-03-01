@@ -14,11 +14,5 @@ export const findPokemon = async (searchType, searchValue) => {
     throw new Error("Pokemon not found")
   }
 
-  if (isNaN(searchValue)) {
-    console.log(`Found ${pokemon.name}! Its ID is ${pokemon.id}`)
-  } else if (!isNaN(searchValue)) {
-    console.log(
-      `Found Pokemon with ID ${pokemon.id}! Its name is ${pokemon.name}`
-    )
-  }
+  return pokemon
 }

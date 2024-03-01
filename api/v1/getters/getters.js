@@ -2,55 +2,48 @@ import psp from "prompt-sync-plus"
 
 const prompt = psp({ sigint: true })
 
+const getInput = () => {
+  const value = prompt(`> `)
+  console.log(`\n`)
+  return value
+}
+
 export const getSearchType = () => {
-  let method = prompt(
-    `How would you like to search for Pokemon? \nPress 1 to search for a pokemon by ID \nPress 2 to search for a pokemon by name. \nType h for help.\n`
+  console.log(
+    `How would you like to search for Pokemon? \nPress 1 to search for a pokemon by ID \nPress 2 to search for a pokemon by name. \nType h for help.\n\n`
   )
+  let method = getInput()
   if (method == 1) {
-    return "id"
+    return "ID"
   } else if (method == 2) {
     return "name"
   } else if (method == "h") {
-    console.log("how can I help?")
-    process.exit(0)
+    console.log("work in progress")
+    getSearchType()
   } else {
-    console.log(`Invalid input. Please enter 1 or 2.`)
-    method = prompt(
-      `How would you like to search for Pokemon? \nPress 1 to search for a pokemon by ID \nPress 2 to search for a pokemon by name. \nType h for help.\n`
-    )
+    console.log(`Invalid input. Try again.`)
     getSearchType()
   }
   return method
 }
 
 export const getSearchValue = (searchType) => {
-  if (searchType === "id") {
-    const value = prompt(
-      `Enter the ID of the Pokemon you want to search for: \n`
-    )
-    if (isNaN(value)) {
-      console.log(`Invalid input. Please enter a number.`)
-      getSearchValue(searchType)
-    }
-    return value
-  } else if (searchType === "name") {
-    const value = prompt(
-      "Enter the name of the Pokemon you want to search for: "
-    )
-    return value
-  }
+  console.log(
+    `Please enter the ${searchType} of the Pokemon you'd like to search for.\n`
+  )
+  return getInput()
 }
 
 export const getAnotherSearch = () => {
-  console.log("Would you like to search for another Pokemon? Y/N")
-  const response = prompt(`> `)
+  console.log(`\nWould you like to search for another Pokemon? Y/N\n`)
+  const response = getInput()
   if (response === "Y" || response === "y") {
     return true
   } else if (response === "n" || response === "N") {
-    console.log("Goodbye, thank you for using our Pokedex!")
+    console.log(`Goodbye, thank you for using our Pokedex!\n`)
     return false
   } else {
-    console.log("Invalid input. Please enter Y or N.")
+    console.log(`Invalid input. Please enter Y or N.\n`)
     getAnotherSearch()
   }
 }
@@ -59,4 +52,35 @@ export const getUserQuery = () => {
   const searchType = getSearchType()
   const searchValue = getSearchValue(searchType)
   return { searchType, searchValue }
+}
+
+export const getPokemonInfo = (pokemon) => {
+  if (!pokemon) {
+    return console.log(
+      `Pokemon not found. Please try again with a different search term.`
+    )
+  } else {
+    const getTypes = (pokemon) => {
+      let types = []
+      for (let type of pokemon.types) {
+        types.push(
+          type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)
+        )
+      }
+      return types.join(" and ")
+    }
+
+    const pokemonName =
+      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+
+    console.log(
+      `====================================\n\nPokemon found! Here's the information:\n\n${pokemonName} (#${
+        pokemon.id
+      }) are a ${getTypes(pokemon)} type Pokemon. ${pokemonName} are ${
+        pokemon.height * 10
+      }cm tall and weighs ${
+        pokemon.weight / 10
+      }kg on average.\n\n====================================\n`
+    )
+  }
 }
