@@ -1,5 +1,5 @@
-import { findPokemon } from "./api/v1/pokemonDAO.js"
-import { getAnotherSearch, getUserQuery } from "./api/getters/getters.js"
+import { findPokemon } from "./api/v1/dao/pokemonDAO.js"
+import { getAnotherSearch, getUserQuery } from "./api/v1/getters/getters.js"
 
 console.log(`\nWelcome to PokéCLI!\n`)
 
