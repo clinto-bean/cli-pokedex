@@ -29,7 +29,7 @@ export const getSearchType = () => {
 
 export const getSearchValue = (searchType) => {
   console.log(
-    `Please enter the ${searchType} of the Pokemon you'd like to search for.\n`
+    `Enter the ${searchType} of the Pokemon you'd like to search for.\n`
   )
   return getInput()
 }
@@ -37,9 +37,10 @@ export const getSearchValue = (searchType) => {
 export const getAnotherSearch = () => {
   console.log(`\nWould you like to search for another Pokemon? Y/N\n`)
   const response = getInput()
-  if (response === "Y" || response === "y") {
+  response.toLowerCase()
+  if (response === ("y" || "Y")) {
     return true
-  } else if (response === "n" || response === "N") {
+  } else if (response === ("n" || "N")) {
     console.log(`Goodbye, thank you for using our Pokedex!\n`)
     return false
   } else {
@@ -63,9 +64,7 @@ export const getPokemonInfo = (pokemon) => {
     const getTypes = (pokemon) => {
       let types = []
       for (let type of pokemon.types) {
-        types.push(
-          type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)
-        )
+        types.push(type.type.name)
       }
       return types.join(" and ")
     }
@@ -76,7 +75,7 @@ export const getPokemonInfo = (pokemon) => {
     console.log(
       `====================================\n\nPokemon found! Here's the information:\n\n${pokemonName} (#${
         pokemon.id
-      }) are a ${getTypes(pokemon)} type Pokemon. ${pokemonName} are ${
+      }) are ${getTypes(pokemon)} type Pokemon. ${pokemonName} are ${
         pokemon.height * 10
       }cm tall and weigh ${
         pokemon.weight / 10

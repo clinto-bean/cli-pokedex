@@ -5,6 +5,8 @@ import {
   getPokemonInfo,
 } from "./api/v1/getters/getters.js"
 
+console.log(`\nWelcome to PokéCLI!\n`)
+
 const app = async () => {
   try {
     const { searchType, searchValue } = getUserQuery()
@@ -18,7 +20,5 @@ const app = async () => {
 
   getAnotherSearch() && app()
 }
-
-console.log(`\nWelcome to PokéCLI!\n`)
 
 app()
