@@ -1,4 +1,11 @@
 export const findPokemon = async (searchType, searchValue) => {
+  if (searchType === "name" && !isNaN(searchValue)) {
+    throw new Error("Invalid input. Please enter a valid name.")
+  }
+  if (searchType === "id" && isNaN(searchValue)) {
+    throw new Error("Invalid input. Please enter a valid ID.")
+  }
+
   const baseURL = "https://pokeapi.co/api/v2/pokemon"
 
   const url = `${baseURL}/${searchValue}`
@@ -9,10 +16,6 @@ export const findPokemon = async (searchType, searchValue) => {
       "Content-Type": "application/json",
     },
   }).then((response) => response.json())
-
-  if (!pokemon.abilities) {
-    throw new Error("Pokemon not found")
-  }
 
   return pokemon
 }

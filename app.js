@@ -11,7 +11,9 @@ const app = async () => {
     const pokemon = await findPokemon(searchType, searchValue)
     getPokemonInfo(pokemon)
   } catch (error) {
-    console.log(`Error: ${error.message}`)
+    console.log(
+      `No Pokemon was found with the parameters provided, please try again.\n${error.message}\n`
+    )
   }
 
   getAnotherSearch() && app()

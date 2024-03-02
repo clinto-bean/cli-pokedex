@@ -78,7 +78,7 @@ export const getPokemonInfo = (pokemon) => {
         pokemon.id
       }) are a ${getTypes(pokemon)} type Pokemon. ${pokemonName} are ${
         pokemon.height * 10
-      }cm tall and weighs ${
+      }cm tall and weigh ${
         pokemon.weight / 10
       }kg on average.\n\n====================================\n`
     )
